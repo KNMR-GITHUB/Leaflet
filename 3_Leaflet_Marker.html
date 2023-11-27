@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--Leaflet css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!--stylesheet-->
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        #sideBar{
+            width: 20%;
+            height: 100dvh;
+            background-color: rgb(31, 33, 140)
+        }
+        #rightSide{
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            height: 100dvh;
+        }
+        #header{
+            width: 100%;
+            height: 10dvh
+        }
+        #justDoIt{
+            width: 100%;
+            height: 70dvh;
+            padding: 10px 10px 10px 0;
+            border-radius: 10px;
+        }
+        #bottom{
+            width: 100%;
+            height: 10dvh;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id = "sideBar">
+
+    </div>
+    <div id = "rightSide">
+        <div id = "header">
+            <h1>XYZ Header</h1>
+        </div>
+        <div id="justDoIt">
+        
+        </div>
+        <div id ="bottom">
+            miscellaneous data
+        </div>
+    </div>
+    
+
+</body>
+</html>
+
+<!--Leaflet js-->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<!--Real map work-->
+<script>
+
+    // map initialization
+    var map = L.map('justDoIt').setView([27.091276, 93.621309], 6.5);
+
+    // layers
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+    
+    googleSat = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+    });
+
+    // adding marker
+    // you should go to this site for details
+    // https://leafletjs.com/reference.html#marker
+
+    var myMarker = L.marker([27.091276, 93.621309])
+    // myMarker.addTo(map) will add the marker (this is a very basic marker)
+
+    // to make the marker popup some info when clicked
+    var markerWithPopup = myMarker.bindPopup("This is some data that needs to be shown").openPopup()
+
+    // making custom icon 
+    // go to this site for code and details
+    // https://leafletjs.com/reference.html#icon
+
+    var myIcon = L.icon({
+        iconUrl: 'danger.png',
+        iconSize: [30, 30],
+        
+        // should look about the below properties on the website mentioned 
+
+        // iconAnchor: [22, 94],
+        // popupAnchor: [-3, -76],
+        // // shadowUrl: 'my-icon-shadow.png',
+        // shadowSize: [68, 95],
+        // shadowAnchor: [22, 94]
+    });
+
+    var custom = L.marker([27.1, 93.61], {icon: myIcon});
+
+    // osm.addTo()
+    googleSat.addTo(map)
+
+    markerWithPopup.addTo(map)
+
+    custom.addTo(map)
+
+</script>
